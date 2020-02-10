@@ -4,7 +4,6 @@ const PUERTO = 8080;
 //-- Modulo http
 const http = require('http');
 
-
 console.log("Arrancando servidor...")
 
 //-- Funcion para atender a una Peticion
@@ -43,13 +42,10 @@ http.createServer( (req, res) => {
   } else {
   //-- Crear mensaje de respuesta
     res.writeHead(200, {'Content-Type': 'text/html'});
-//    fs.readFile("./xyz/index.html", (err,fileContent) =>
-//      {
-//        res.end(fileContent);
-//      });
     res.write(`<!doctype html><html><head></head>
-              <body><h1>Probando html</h1></body></html>`);
+               <body><h1>Probando html</h1></body></html>`);
     res.end();
+  }
 }).listen(PUERTO);
 
 console.log("Servidor LISTO!")
