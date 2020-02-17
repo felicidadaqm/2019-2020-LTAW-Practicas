@@ -17,6 +17,7 @@ http.createServer((req, res) => {
   let recurso = ""
   let mime = "text/"
 
+  // -- Función que calcula cuantas veces se repite un caracter en la cadena
   function repeticion(cadena, caracter){
     var indices = [];
       for(var i = 0; i < cadena.length; i++) {
@@ -25,14 +26,14 @@ http.createServer((req, res) => {
   	return indices.length;
   }
 
-  // Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
+  // -- Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
   var barras = repeticion(q.pathname, "/")
 
-  // Buscamos el "." final para poder indicar que tipo mime es
+  // -- Buscamos el "." final para poder indicar que tipo mime es
   let tipo = q.pathname.lastIndexOf(".")
   let tipo1 = q.pathname.slice(tipo+1)
 
-  // If para completar el nombre del recurso y tipo mime del mismo
+  // -- If para completar el nombre del recurso y tipo mime del mismo
   if (barras > 1) {
     recurso = "." + q.pathname
     mime = mime + tipo1
@@ -48,10 +49,6 @@ http.createServer((req, res) => {
   }
 
   filename = filename + recurso;
-  console.log("RECURSO")
-  console.log(filename)
-  console.log("MIME")
-  console.log(mime)
 
   //-- Leer fichero
   fs.readFile(filename, function(err, data) {
