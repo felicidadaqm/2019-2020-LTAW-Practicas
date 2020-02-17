@@ -1,11 +1,50 @@
 body {
-  background-color: lightblue;
+  background-color:  #D8EAF5 ;
+}
+
+.main {
+  margin-top: 200px; /* Add a bottom margin to avoid content overlay */
+}
+
+.header {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+
+  text-align: center;
+  text-shadow: 0.1em 0.1em #333;
+  background: #AEC7D6;
+  color: white;
+  font-size: 30px;
+  font-family: 'Lemonada', cursive;
+}
+
+h1 {
+  top: 20px;
 }
 
 p {
-  color: green;
+  color: black;
 }
 
-.links {
-  font-family: Georgia;
+.productos {
+   width: 100%;
+}
+
+#izquierda {
+  margin-left: 150px;
+  width:20%;
+  float: left;
+}
+
+#derecha {
+  width: 20%;
+  float:right;
+}
+
+#centro {
+  margin-left: 650px;
+  width: 20%;
 }

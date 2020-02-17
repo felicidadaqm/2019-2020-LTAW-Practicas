@@ -14,34 +14,43 @@ http.createServer((req, res) => {
   console.log("pathname:" + q.pathname)
 
   let filename = ""
+  let recurso = ""
   let mime = "text/"
-  let url1 = q.pathname
 
-  // Buscar función de java para hacer esto
-//  if (url1.count('/') > 1) {
-//    let recurso = "." + q.pathname
-//    console.log(recurso)
-//  } else {
-//    let peticion = q.pathname.lastIndexOf("/")
-//    let recurso = q.pathname.slice(peticion+1)
-//  }
+  function repeticion(cadena, caracter){
+    var indices = [];
+      for(var i = 0; i < cadena.length; i++) {
+        if (cadena[i].toLowerCase() === caracter) indices.push(i);
+      }
+  	return indices.length;
+  }
 
-  let peticion = q.pathname.lastIndexOf("/")
-  let recurso = q.pathname.slice(peticion+1)
+  // Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
+  var barras = repeticion(q.pathname, "/")
 
-  filename = filename + recurso;
-  console.log(filename)
-
+  // Buscamos el "." final para poder indicar que tipo mime es
   let tipo = q.pathname.lastIndexOf(".")
   let tipo1 = q.pathname.slice(tipo+1)
 
-  if (tipo1 == "/") {
-    mime = "text/html"
-    filename += "index.html"
-  } else {
+  // If para completar el nombre del recurso y tipo mime del mismo
+  if (barras > 1) {
+    recurso = "." + q.pathname
     mime = mime + tipo1
+  } else {
+    if (tipo1 == "/") {
+      mime = "text/html"
+      filename += "index.html"
+    } else {
+      mime = mime + tipo1
+    }
+    let peticion = q.pathname.lastIndexOf("/")
+    recurso = q.pathname.slice(peticion+1)
   }
 
+  filename = filename + recurso;
+  console.log("RECURSO")
+  console.log(filename)
+  console.log("MIME")
   console.log(mime)
 
   //-- Leer fichero
