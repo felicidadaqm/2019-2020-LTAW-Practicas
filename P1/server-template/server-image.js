@@ -14,21 +14,35 @@ http.createServer((req, res) => {
   console.log("pathname:" + q.pathname)
 
   let filename = ""
+  let mime = "text/"
+  let url1 = q.pathname
 
-  //-- Obtener fichero a devolver
-  if (q.pathname == "/") {
-    var mime = "text/html"
+  // Buscar función de java para hacer esto
+//  if (url1.count('/') > 1) {
+//    let recurso = "." + q.pathname
+//    console.log(recurso)
+//  } else {
+//    let peticion = q.pathname.lastIndexOf("/")
+//    let recurso = q.pathname.slice(peticion+1)
+//  }
+
+  let peticion = q.pathname.lastIndexOf("/")
+  let recurso = q.pathname.slice(peticion+1)
+
+  filename = filename + recurso;
+  console.log(filename)
+
+  let tipo = q.pathname.lastIndexOf(".")
+  let tipo1 = q.pathname.slice(tipo+1)
+
+  if (tipo1 == "/") {
+    mime = "text/html"
     filename += "index.html"
-  } else if (q.pathname == "/css/micss.css") {
-    var mime = "text/css"
-    filename += "micss.css"
-  } else if (q.pathname == "/logo_node.png" ) {
-    var mime = "image/png"
-    filename += "logo_node.png"
-  } else if (q.pathname == "/test1.html") {
-    var mime = "text/html"
-    filename += "test1.html"
+  } else {
+    mime = mime + tipo1
   }
+
+  console.log(mime)
 
   //-- Leer fichero
   fs.readFile(filename, function(err, data) {
