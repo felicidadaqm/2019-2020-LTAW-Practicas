@@ -1,9 +1,9 @@
 body {
-  background-color:  #D8EAF5 ;
+  background-color: #F2F2F2 ;
 }
 
 .main {
-  margin-top: 200px; /* Add a bottom margin to avoid content overlay */
+  margin-top: 220px; /* Add a bottom margin to avoid content overlay */
 }
 
 .header {
@@ -15,7 +15,7 @@ body {
 
   text-align: center;
   text-shadow: 0.1em 0.1em #333;
-  background: #AEC7D6;
+  background: #A7756E;
   color: white;
   font-size: 30px;
   font-family: 'Lemonada', cursive;
@@ -29,22 +29,40 @@ p {
   color: black;
 }
 
+li {
+  font-size: 12px;
+  font-weight: normal;
+}
+
 .productos {
    width: 100%;
 }
 
+img {
+  width: 350px;
+  height: 300px;
+}
+
+#cajas {
+  width: 350px;
+  height: 400px;
+}
+
+.columna {
+  width:45%;
+  float:left;
+  margin-left: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+
 #izquierda {
-  margin-left: 150px;
-  width:20%;
+  width: 60%;
   float: left;
 }
 
 #derecha {
   width: 20%;
-  float:right;
-}
-
-#centro {
-  margin-left: 650px;
-  width: 20%;
+  margin-left: 20px;
 }
