@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from random import randint
 from django.template import Template, Context
+from mi_tienda.models import Producto
+
 
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
@@ -97,3 +99,18 @@ def test5(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
     return render(request, 'test5.html', {'numero':str(numero)})
+
+
+# -- from mi_tienda.models import Producto
+
+def list(request):
+    productos = Producto.objects.all()
+    html = "<h2>Listado de articulos</h2>"
+    for prod in productos:
+        print(prod.nombre)
+        html += '<p>'+ prod.nombre + ' ' + str(prod.precio) + '<p>'
+    return HttpResponse(html)
+
+def list2(request):
+    productos = Producto.objects.all()
+    return render(request, 'list2.html', {'productos':productos})
