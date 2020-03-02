@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mi tienda</title>
+    <link rel="stylesheet" href="{% static 'css/micss.css'%}">
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="header">
+      <h1> Magic shop</h1>
+    </div>
+
+    <div class="main">
+
+        <!-- Poner estilos en los links -->
+      <div class="productos">
+
+        <div class="columna">
+          <img src="{% static 'images/little.jpg'%}" alt="foto del artículo 1">
+          <br></br>
+          <a href="prod1/">Artículo 1</a>
+        </div>
+
+        <div class="columna">
+          <img src="{% static 'images/medium.jpg'%}" alt="foto del artículo 2">
+          <br></br>
+          <a href="test1.html">Artículo 2</a>
+        </div>
+
+        <div class="columna">
+          <img src="{% static 'images/big.jpg'%}" alt="foto del artículo 3">
+          <br></br>
+          <a href="test1.html">Artículo 3</a>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>

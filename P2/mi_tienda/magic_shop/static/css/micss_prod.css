@@ -1,0 +1,68 @@
+body {
+  background-color: #F2F2F2 ;
+}
+
+.main {
+  margin-top: 220px; /* Add a bottom margin to avoid content overlay */
+}
+
+.header {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+
+  text-align: center;
+  text-shadow: 0.1em 0.1em #333;
+  background: #A7756E;
+  color: white;
+  font-size: 30px;
+  font-family: 'Lemonada', cursive;
+}
+
+h1 {
+  top: 20px;
+}
+
+p {
+  color: black;
+}
+
+li {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.productos {
+   width: 100%;
+}
+
+img {
+  width: 350px;
+  height: 300px;
+}
+
+#cajas {
+  width: 350px;
+  height: 400px;
+}
+
+.columna {
+  width:45%;
+  float:left;
+  margin-left: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+
+#izquierda {
+  width: 60%;
+  float: left;
+}
+
+#derecha {
+  width: 20%;
+  margin-left: 20px;
+}
