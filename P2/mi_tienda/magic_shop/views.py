@@ -13,3 +13,8 @@ def index(request):
 def prod1(request):
     # -- Obtener el número aleatorio
     return render(request, 'prod1.html')
+
+def prod2(request):
+    prueba = '123'
+    return render(request, 'prod2.html', {'imag': 'images/conjunto', 'cont1': prueba,
+     'precio': '15' })

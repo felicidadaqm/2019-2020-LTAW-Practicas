@@ -1,0 +1,37 @@
+  {% load staticfiles %}
+
+  <!DOCTYPE html>
+  <html lang="es" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title>Artículo 1</title>
+      <link rel="stylesheet" href="{% static 'css/micss_prod.css'%}">
+      <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+      <div class="header">
+      <h1> Magic shop</h1>
+      </div>
+
+      <div class="main">
+        <div class="columna" id="izquierda">
+          <img src="{% static 'images/conjunto.jpg'%}" alt="foto del artículo" id="cajas">
+          <img src="{% static 'images/little.jpg'%}" alt="foto del artículo">
+        </div>
+
+        <div class="columna" id="derecha">
+          <h3>Caja sorpresa {{tamaño}}</h3>
+          <p> Contenidos: </p>
+            <li> {{cont1}}</li>
+            <li> {{cont2}}</li>
+            <li> {{cont3}}</li>
+          <p> {{precio}} $$ + gastos de envío</p>
+          <br></br>
+          <a href="/">Volver a página principal</a>
+        </div>
+      </div>
+
+    </body>
+  </html>
