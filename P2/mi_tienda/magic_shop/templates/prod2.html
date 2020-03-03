@@ -4,7 +4,7 @@
   <html lang="es" dir="ltr">
     <head>
       <meta charset="utf-8">
-      <title>Artículo 1</title>
+      <title>{{articulo}}</title>
       <link rel="stylesheet" href="{% static 'css/micss_prod.css'%}">
       <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
     </head>
@@ -18,7 +18,7 @@
       <div class="main">
         <div class="columna" id="izquierda">
           <img src="{% static 'images/conjunto.jpg'%}" alt="foto del artículo" id="cajas">
-          <img src="{% static 'images/little.jpg'%}" alt="foto del artículo">
+          <img src="{{foto}}" alt="foto del artículo">
         </div>
 
         <div class="columna" id="derecha">

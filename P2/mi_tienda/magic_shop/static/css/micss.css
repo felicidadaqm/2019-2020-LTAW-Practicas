@@ -26,11 +26,13 @@ h1 {
 }
 
 p {
-  color: black;
-}
-
-.link {
-  color: black;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 10px;
+  color: grey;
+  font: Verdana;
+  display: inline-block;
+  text-align: justify;
 }
 
 .productos {
@@ -40,14 +42,35 @@ p {
 img {
   width: 350px;
   height: 300px;
+  display: block;
+  margin: auto;
 }
 
 .columna {
-  width:28%;
+  width:29%;
   float:left;
-  margin-left: 50px;
-  text-align: center;
+  margin-left: 35px;
   font-size: 15px;
   font-weight: bold;
   font-family: Georgia;
+  border: grey 1px solid;
+}
+
+a:link, a:visited  {
+  margin-left: 30px;
+  font-size: 18px;
+  font-family: Verdana;
+  align: left;
+  color: #A7756E;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #CC0066;
+  text-decoration: underline;
+}
+
+.Price {
+  font-size: 17px;
+  margin-left: 65px;
 }

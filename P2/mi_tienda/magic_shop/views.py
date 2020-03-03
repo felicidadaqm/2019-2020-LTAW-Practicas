@@ -15,6 +15,11 @@ def prod1(request):
     return render(request, 'prod1.html')
 
 def prod2(request):
-    prueba = '123'
-    return render(request, 'prod2.html', {'imag': 'images/conjunto', 'cont1': prueba,
-     'precio': '15' })
+    foto = "{% static 'images/medium.jpg'%}"
+    return render(request, 'prod2.html', {'articulo': 'caja mediana', 'foto': foto,
+    'tamaño': 'mediana', 'cont1':'nanana',
+    'cont2': 'blabla', 'precio': '30' })
+
+def prod3(request):
+    # -- Obtener el número aleatorio
+    return render(request, 'prod3.html')
