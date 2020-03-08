@@ -26,12 +26,20 @@ h1 {
 }
 
 p {
-  color: black;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 15px;
+  color: grey;
+  font: Verdana;
+  display: inline-block;
+  text-align: justify;
 }
 
 li {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: normal;
+  font: Verdana;
+  margin-left: 40px;
 }
 
 .productos {
@@ -57,12 +65,29 @@ img {
   font-family: Georgia;
 }
 
+a:link, a:visited  {
+  margin-left: 30px;
+  font-size: 18px;
+  font-family: Verdana;
+  align: left;
+  color: #A7756E;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #CC0066;
+  text-decoration: underline;
+}
+
 #izquierda {
-  width: 60%;
+  width: 55%;
   float: left;
 }
 
 #derecha {
   width: 20%;
+  border-left: grey 1px solid;
   margin-left: 20px;
+  padding-left: 30px;
+  height: 400px;
 }
