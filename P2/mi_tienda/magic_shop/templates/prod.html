@@ -4,7 +4,7 @@
   <html lang="es" dir="ltr">
     <head>
       <meta charset="utf-8">
-      <title>{{articulo}}</title>
+      <title>{{product.nombre}}</title>
       <link rel="stylesheet" href="{% static 'css/micss_prod.css'%}">
       <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
     </head>
@@ -18,18 +18,18 @@
       <div class="main">
         <div class="columna" id="izquierda">
           <img src="{% static 'images/conjunto.jpg'%}" alt="foto del artículo" id="cajas">
-          <img src="{{foto}}" alt="foto del artículo">
+          <img src="{% static '{{product.photo}}' %}" alt="foto del artículo">
         </div>
 
         <div class="columna" id="derecha">
-          <h3>Caja sorpresa {{tamaño}}</h3>
+          <h3>{{product.nombre}}</h3>
           <p> Contenidos: </p>
             <li> {{cont1}}</li>
             <li> {{cont2}}</li>
             <li> {{cont3}}</li>
-          <p> {{precio}} $$ + gastos de envío</p>
+          <p> {{product.precio}} $$ + gastos de envío</p>
           <br></br>
-          <a href="/">Volver a página principal</a>
+          <a href="/">Página principal</a>
         </div>
       </div>
 

@@ -19,16 +19,19 @@
         <!-- Poner estilos en los links -->
       <div class="productos">
 
+      {% for prod in product %}
         <div class="columna">
-          <img src="{% static 'images/little.jpg'%}" alt="foto del artículo 1">
+          <img src="{% static 'prod.photo'%}" alt="foto del artículo">
           <br>
-            <a href="prod1/">Little mystery box</a>
-            <p class="Price"> 14,99 € </p>
+            <a href="prod1/"> {{prod.nombre}}</a>
+            <p class="Price"> {{prod.precio}} € </p>
           <br>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
+      {% endfor %}
 
+----------
         <div class="columna">
           <img src="{% static 'images/medium.jpg'%}" alt="foto del artículo 2">
           <br>
@@ -42,12 +45,13 @@
         <div class="columna">
           <img src="{% static 'images/big.jpg'%}" alt="foto del artículo 3">
           <br>
-            <a href="test1.html">Big mystery box</a>
+            <a href="prod3/">Big mystery box</a>
             <p class="Price"> 34,99 € </p>
         <br>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
+
 
       </div>
 

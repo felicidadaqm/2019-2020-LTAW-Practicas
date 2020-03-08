@@ -1,0 +1,17 @@
+━━ Cómo añadir una nueva vista:
+
+    1. Añadir página en el html que quiera, o crear uno nuevo.
+    2. Añadir la línea en urls.py
+    3. Añadir en views.py una nueva función con el nombre de esa vista,
+      y las cosas que quiera meter en el template de html.
+
+
+━━ Cómo añadir un nuevo producto:
+
+    1. Desde terminal:
+        Abro una shell: python3 manage.py shell
+        Cargo los datos: from mi_tienda.models import Producto
+        Añado producto: p1 = Producto(nombre="FPGA", stock=3, precio=6.3)
+        Guardar: p1.save()
+
+    2. Desde /admin.
