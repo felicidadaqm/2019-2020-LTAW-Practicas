@@ -28,11 +28,18 @@ h1 {
 p {
   margin-left: 30px;
   margin-right: 30px;
-  font-size: 10px;
+  font-size: 15px;
   color: grey;
   font: Verdana;
   display: inline-block;
   text-align: justify;
+}
+
+li {
+  font-size: 15px;
+  font-weight: normal;
+  font: Verdana;
+  margin-left: 40px;
 }
 
 .productos {
@@ -42,19 +49,20 @@ p {
 img {
   width: 350px;
   height: 300px;
-  display: block;
-  margin: auto;
+}
+
+#cajas {
+  width: 350px;
+  height: 400px;
 }
 
 .columna {
-  width:29%;
+  width:45%;
   float:left;
-  margin-left: 35px;
-  margin-bottom: 35px;
+  margin-left: 50px;
   font-size: 15px;
   font-weight: bold;
   font-family: Georgia;
-  border: grey 1px solid;
 }
 
 a:link, a:visited  {
@@ -71,7 +79,15 @@ a:hover {
   text-decoration: underline;
 }
 
-.Price {
-  font-size: 17px;
-  margin-left: 65px;
+#izquierda {
+  width: 55%;
+  float: left;
+}
+
+#derecha {
+  width: 20%;
+  border-left: grey 1px solid;
+  margin-left: 20px;
+  padding-left: 30px;
+  height: 400px;
 }

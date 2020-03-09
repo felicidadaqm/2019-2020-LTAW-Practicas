@@ -18,8 +18,10 @@
       <div class="main">
         <div class="columna" id="izquierda">
           <img src="{% static 'images/conjunto.jpg'%}" alt="foto del artículo" id="cajas">
-          <img src="{% static '{{product.photo}}' %}" alt="foto del artículo">
+          <img src="{% static '' %}{{product.photo}}" alt="foto del artículo">
         </div>
+
+        <div class="vl"></div>
 
         <div class="columna" id="derecha">
           <h3>{{product.nombre}}</h3>

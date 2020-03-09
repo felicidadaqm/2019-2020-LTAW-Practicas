@@ -7,6 +7,7 @@ class Producto(models.Model):
     stock = models.IntegerField(default=0)
     precio = models.FloatField()
     photo = models.CharField(max_length=200)
+    url = models.CharField(max_length=200)
 
     # -- Usamos el nombre para identificar
     # -- el producto

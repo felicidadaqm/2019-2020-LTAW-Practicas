@@ -7,6 +7,7 @@
     <title>Mi tienda</title>
     <link rel="stylesheet" href="{% static 'css/micss.css'%}">
     <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Parisienne|Permanent+Marker&display=swap" rel="stylesheet">
   </head>
   <body>
 
@@ -21,37 +22,15 @@
 
       {% for prod in product %}
         <div class="columna">
-          <img src="{% static 'prod.photo'%}" alt="foto del artículo">
+          <img src="{% static '' %}{{prod.photo}}" alt="foto del artículo">
           <br>
-            <a href="prod1/"> {{prod.nombre}}</a>
+            <a href="{{prod.url}}"> {{prod.nombre}}</a>
             <p class="Price"> {{prod.precio}} € </p>
           <br>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
       {% endfor %}
-
-----------
-        <div class="columna">
-          <img src="{% static 'images/medium.jpg'%}" alt="foto del artículo 2">
-          <br>
-            <a href="prod2/">Med. mystery box</a>
-            <p class="Price"> 29,99 € </p>
-        <br>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-
-        <div class="columna">
-          <img src="{% static 'images/big.jpg'%}" alt="foto del artículo 3">
-          <br>
-            <a href="prod3/">Big mystery box</a>
-            <p class="Price"> 34,99 € </p>
-        <br>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-
 
       </div>
 
