@@ -11,5 +11,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('prod1/', views.prod1, name='producto1'),
     path('prod2/', views.prod2, name='producto2'),
-    path('prod3/', views.prod3, name="producto3")
+    path('prod3/', views.prod3, name="producto3"),
+    path('formulario1/', views.formulario1, name='formulario1'),
+    path('recepcion1/', views.recepcion1, name='reception1'),
 ]

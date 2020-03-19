@@ -63,7 +63,6 @@ img {
   font-size: 15px;
   font-weight: bold;
   font-family: Georgia;
-  border-left: 1px solid grey;
 }
 
 a:link, a:visited  {
@@ -87,5 +86,8 @@ a:hover {
 
 #derecha {
   width: 20%;
+  border-left: grey 1px solid;
   margin-left: 20px;
+  padding-left: 30px;
+  height: 400px;
 }

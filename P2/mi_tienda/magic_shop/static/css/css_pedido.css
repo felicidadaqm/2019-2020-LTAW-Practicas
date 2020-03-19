@@ -1,0 +1,58 @@
+body {
+  background-color: #F2F2F2 ;
+}
+
+.main {
+  margin-top: 220px; /* Add a bottom margin to avoid content overlay */
+}
+
+.header {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+
+  text-align: center;
+  text-shadow: 0.1em 0.1em #333;
+  background: #A7756E;
+  color: white;
+  font-size: 30px;
+  font-family: 'Lemonada', cursive;
+}
+
+h2 {
+  top: 40px;
+  text-align: center;
+  color: #A7756E;
+}
+
+.eleccion {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Lemona;
+  color: grey;
+  border: grey 1px solid;
+  margin-left: 500px;
+  margin-right: 500px;
+}
+
+.button {
+  box-shadow:inset 0px 39px 0px -24px #A7756E;
+  margin-left: 500px;
+  margin-left: 500px;
+  width: 350px;
+  position: relative;
+  background-color:#A7756E;
+  border-radius:4px;
+  border:1px solid #ffffff;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Verdana;
+  font-size:15px;
+  padding:6px 15px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #b23e35;
+}

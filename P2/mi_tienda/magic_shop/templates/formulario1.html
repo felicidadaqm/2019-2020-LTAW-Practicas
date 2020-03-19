@@ -1,0 +1,42 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Formulario 1</title>
+    <link rel="stylesheet" href="{% static 'css/css_pedido.css'%}">
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Parisienne|Permanent+Marker&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="header">
+      <h1> Magic shop</h1>
+    </div>
+
+    <div class="main">
+      <h2>Formulario de Pedido</h2>
+      <form  action="/recepcion1/" method="post">
+        {% csrf_token %}
+        <div class="eleccion">
+          <br>
+          <label>Nombre completo: <label>
+          <input type="text" name="nombre" value="Anonimo" />
+          <br>
+          <br>
+          <input type="checkbox" name="article" value="Little">Little mystery box
+          <br>
+          <input type="checkbox" name="article" value="Medium">Medium mystery box
+          <br>
+          <input type="checkbox" name="article" value="Big">Big mystery box
+          <br>
+          <br>
+        </div>
+          <br>
+          <input type="submit" class="button" value="Finalizar pedido"/>
+          <br>
+      </form>
+    </div>
+  </body>
+</html>

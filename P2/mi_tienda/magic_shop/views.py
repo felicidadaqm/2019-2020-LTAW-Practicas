@@ -27,3 +27,15 @@ def prod3(request):
     product = Producto.objects.all()[2]
     return render(request, 'prod.html', {'product': product,
     'cont1':'nanana', 'cont2': 'blabla' })
+
+def formulario1(request):
+    return render(request, 'formulario1.html', {})
+
+def recepcion1(request):
+    # -- Obtener el nombre de la persona
+    persona = request.POST['nombre']
+    pedido = request.POST['article']
+    # -- Imprimirlo en la consola del servidor
+    print(f" PEDIDO RECIBIDO!!! ----> {persona}")
+    print(f" PEDIDO RECIBIDO!!! ----> {pedido}")
+    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'])
