@@ -1,0 +1,34 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="{% static 'css/css_recepcion.css'%}">
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Parisienne|Permanent+Marker&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="header">
+      <h1> Magic shop</h1>
+    </div>
+
+    <div class="main">
+      <h2>¡Pedido completado!</h2>
+      <form  action="/recepcion/" method="post">
+        {% csrf_token %}
+        <div class="llegada">
+          <br>
+          <p> Muchas gracias, {{pedido.cliente}}. Su pedido con
+              coste {{pedido.precio}} $$ ha sido recibido.
+              Prodeceremos al envío en los próximos días.
+        </div>
+          <br>
+          <a href="/"> Volver a la página principal</a>
+          <br>
+      </form>
+    </div>
+  </body>
+</html>

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from random import randint
 from django.template import Template, Context
-from magic_shop.models import Producto
+from magic_shop.models import Producto, Pedido
 
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
@@ -28,14 +28,29 @@ def prod3(request):
     return render(request, 'prod.html', {'product': product,
     'cont1':'nanana', 'cont2': 'blabla' })
 
-def formulario1(request):
-    return render(request, 'formulario1.html', {})
+def formulario(request):
+    return render(request, 'formulario.html', {})
 
-def recepcion1(request):
+def recepcion(request):
     # -- Obtener el nombre de la persona
     persona = request.POST['nombre']
     pedido = request.POST['article']
+
+    if pedido == "Little":
+        precio = 14.99
+    elif pedido == "Medium":
+        precio = 24.99
+    else:
+        precio = 34.99
+
+    new_order = Pedido(cliente=persona, articulo=pedido, precio=precio)
+    new_order.save()
+
+    pedido = Pedido.objects.all().last()
+
     # -- Imprimirlo en la consola del servidor
     print(f" PEDIDO RECIBIDO!!! ----> {persona}")
     print(f" PEDIDO RECIBIDO!!! ----> {pedido}")
-    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'])
+    print(f" PEDIDO RECIBIDO!!! ----> {precio}")
+
+    return render(request, 'recepcion.html', {'pedido': pedido})

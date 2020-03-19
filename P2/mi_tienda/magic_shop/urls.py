@@ -12,6 +12,6 @@ urlpatterns = [
     path('prod1/', views.prod1, name='producto1'),
     path('prod2/', views.prod2, name='producto2'),
     path('prod3/', views.prod3, name="producto3"),
-    path('formulario1/', views.formulario1, name='formulario1'),
-    path('recepcion1/', views.recepcion1, name='reception1'),
+    path('formulario/', views.formulario, name='formulario'),
+    path('recepcion/', views.recepcion, name='reception'),
 ]

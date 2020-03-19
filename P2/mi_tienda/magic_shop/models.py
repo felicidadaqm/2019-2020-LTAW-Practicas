@@ -13,3 +13,15 @@ class Producto(models.Model):
     # -- el producto
     def __str__(self):
         return self.nombre
+
+
+class Pedido(models.Model):
+    # """Modelo de datos de mis productos"""
+    cliente = models.CharField(max_length=50)
+    articulo = models.CharField(max_length=50)
+    precio = models.FloatField()
+
+    # -- Usamos el nombre para identificar
+    # -- el pedido
+    def __str__(self):
+        return self.cliente
