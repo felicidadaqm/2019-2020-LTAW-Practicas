@@ -50,9 +50,9 @@ http.createServer((req, res) => {
 
   filename = filename + recurso;
 
+
   //-- Leer fichero
   fs.readFile(filename, function(err, data) {
-
     //-- Fichero no encontrado. Devolver mensaje de error
     if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'});
