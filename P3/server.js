@@ -12,6 +12,42 @@ function repeticion(cadena, caracter){
   return indices.length;
 }
 
+// Creamos un html muy básico para las páginas de confirmación
+// -- ARREGLAR PARA QUE SIRVA PARA LOS CARRITOS
+function htmlbase(variable) {
+  context =  `
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="utf-8">
+        <title>FORM 1</title>
+        <link rel="stylesheet" href="css/css_login.css">
+        <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+      </head
+
+      <body>
+        <div class="header">
+          <h1> Magic shop</h1>
+        </div>
+
+        <div class="main">
+          <h2>Confirmación de registro</h2>
+          <div class="cuadro">
+          <p>¡Bienvenido `
+    context += variable
+    context += `
+          !</p>
+          </div>
+          <br>
+          <br>
+          <a href="/" class="button">Pagina principal</a>
+        </div>
+      </body>
+      </html>
+      `
+    return context
+}
+
 //-- Funcion para atender a una Peticion
 //-- req: Mensaje de solicitud
 //-- res: Mensaje de respuesta
@@ -29,17 +65,13 @@ function peticion(req, res) {
   let recurso = ""
   let mime = "text/"
 
-  //-- Leer las cookies
-  const cookie = req.headers.cookie;
-  console.log("Cookie: " + cookie)
-
-  // -- Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
-  var barras = repeticion(q.pathname, "/")
-
   // -- Buscamos el "." final para poder indicar que tipo mime es
   let tipo = q.pathname.lastIndexOf(".")
   let tipo1 = q.pathname.slice(tipo+1)
   mime = mime + tipo1
+
+  // -- Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
+  var barras = repeticion(q.pathname, "/")
 
   // Recoge la dirección del recurso que se busca y su mime
   if (barras > 1) {
@@ -48,6 +80,13 @@ function peticion(req, res) {
     let peticion = q.pathname.lastIndexOf("/")
     recurso = q.pathname.slice(peticion+1)
   }
+
+  // Nombre del fichero
+  filename = filename + recurso;
+
+  //-- Leer las cookies
+  const cookie = req.headers.cookie;
+  console.log("Cookie: " + cookie)
 
   //-- Segun el recurso al que se accede
   switch (q.pathname) {
@@ -59,7 +98,7 @@ function peticion(req, res) {
         content += "\nNo te conozco... Registrate!\n"
         content += "Accede a /login"
         mime = "text/plain"
-      //-- Hay definida una Cookie. Entra a la vista principal de la tienda
+      //-- Hay definida una Cookie. Entra a la vista principal
       } else {
         content += "Obijuan"
         mime = "text/html"
@@ -70,10 +109,35 @@ function peticion(req, res) {
 
     //-- Pagina de acceso
     case "/login":
-      content = "Registrado! Cookie enviada al navegador!"
+      mime = "text/html"
+      filename = "login.html"
       //-- ESTABLECER LA COOKIE!!
       res.setHeader('Set-Cookie', 'user=obijuan')
-      break
+
+      if (req.method === 'POST') {
+          // Handle post info...
+          req.on('data', chunk => {
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+              //-- Añadir los datos a la respuesta
+              usuario = data.indexOf("=")
+              usuario1 = data.slice(usuario+1,)
+              //-- Añadimos el usuario al html base
+              content = htmlbase(usuario1)
+              //-- Mostrar los datos en la consola del servidor
+              console.log("Datos recibidos: " + data)
+              res.statusCode = 200;
+           });
+
+           req.on('end', ()=> {
+             //-- Generar el mensaje de respuesta
+             res.setHeader('Content-Type', 'text/html')
+             res.write(content);
+             res.end();
+           })
+           return
+        }
+      break;
 
     //-- Se intenta acceder a un recurso que no existe
     default:
@@ -81,7 +145,6 @@ function peticion(req, res) {
       res.statusCode = 404;
   }
 
-  filename = filename + recurso;
   console.log("__________")
   console.log(filename)
   console.log(recurso)
@@ -106,6 +169,7 @@ function peticion(req, res) {
     });
   }
 }
+
 
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición

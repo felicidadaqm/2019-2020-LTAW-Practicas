@@ -21,80 +21,28 @@ body {
   font-family: 'Lemonada', cursive;
 }
 
-h1 {
-  top: 20px;
+h2 {
+  top: 40px;
+  text-align: center;
+  color: #A7756E;
 }
 
-p {
-  margin-left: 30px;
-  margin-right: 30px;
-  font-size: 15px;
-  color: grey;
-  font: Verdana;
-  display: inline-block;
-  text-align: justify;
-}
-
-li {
-  font-size: 15px;
-  font-weight: normal;
-  font: Verdana;
-  margin-left: 40px;
-}
-
-.productos {
-   width: 100%;
-}
-
-img {
-  width: 350px;
-  height: 300px;
-}
-
-#cajas {
-  width: 350px;
-  height: 400px;
-}
-
-.columna {
-  width:45%;
-  float:left;
-  margin-left: 50px;
+.eleccion, .cuadro {
+  text-align: center;
   font-size: 15px;
   font-weight: bold;
-  font-family: Georgia;
-}
-
-a:link, a:visited  {
-  margin-left: 30px;
-  font-size: 18px;
-  font-family: Verdana;
-  color: #A7756E;
-  text-decoration: none;
-  align: center;
-}
-
-a:hover {
-  color: #CC0066;
-  text-decoration: underline;
-}
-
-#izquierda {
-  width: 55%;
-  float: left;
-}
-
-#derecha {
-  width: 20%;
-  border-left: grey 1px solid;
-  margin-left: 20px;
-  padding-left: 30px;
-  height: 400px;
+  font-family: Lemona;
+  color: grey;
+  border: grey 1px solid;
+  margin-left: 500px;
+  margin-right: 500px;
 }
 
 .button {
   box-shadow:inset 0px 39px 0px -24px #A7756E;
-  width: 300px;
+  margin-left: 500px;
+  margin-left: 500px;
+  width: 350px;
   position: relative;
   background-color:#A7756E;
   border-radius:4px;
@@ -103,7 +51,6 @@ a:hover {
   cursor:pointer;
   color:#ffffff;
   font-family:Verdana;
-  font-weight: normal;
   font-size:15px;
   padding:6px 15px;
   text-decoration:none;
