@@ -11,6 +11,8 @@
 
     <div class="header">
     <h1> Magic shop</h1>
+    <span><p>Bienvenido</p></span>
+    <span><p>Carrito</p></span>
     </div>
 
     <div class="main">
@@ -27,9 +29,14 @@
             <li> Sorpresa</li>
           <p>14,99 $$ + gastos de envío</p>
           <br></br>
-        <form method="post" action="/prod">
-          <input type="submit" class="button"value="Añadir al carrito"/>
+        <form method="post">
+          <button type="submit" name="botonenvio" value="Little">Enviar</button>
         </form>
+        <script>
+          function myFunction() {
+            alert("¡Producto añadido!");
+          }
+        </script>
         <br>
         <a href="/">←</a>
       </div>

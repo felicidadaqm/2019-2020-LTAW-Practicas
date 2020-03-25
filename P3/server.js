@@ -14,13 +14,13 @@ function repeticion(cadena, caracter){
 
 // Creamos un html muy básico para las páginas de confirmación
 // -- ARREGLAR PARA QUE SIRVA PARA LOS CARRITOS
-function htmlbase(variable) {
+function htmlbase(tipoconf, variable) {
   context =  `
     <!DOCTYPE html>
     <html lang="es">
       <head>
         <meta charset="utf-8">
-        <title>FORM 1</title>
+        <title>Confirmacióno</title>
         <link rel="stylesheet" href="css/css_login.css">
         <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
       </head
@@ -30,8 +30,9 @@ function htmlbase(variable) {
           <h1> Magic shop</h1>
         </div>
 
-        <div class="main">
-          <h2>Confirmación de registro</h2>
+        <div class="main"> `
+    context += tipoconf
+    context += `
           <div class="cuadro">
           <p>¡Bienvenido `
     context += variable
@@ -92,27 +93,28 @@ function peticion(req, res) {
   switch (q.pathname) {
     //-- Pagina principal
     case "/":
+      // -- Primero comprobamos que el usuario esté loggeado.
       content = "Bienvenido a mi tienda "
       //-- No hay ninguna cookie
       if (!cookie) {
+        // FALTA ESTE HTML Y CAMBIAR MIME, ETC
         content += "\nNo te conozco... Registrate!\n"
         content += "Accede a /login"
         mime = "text/plain"
       //-- Hay definida una Cookie. Entra a la vista principal
       } else {
-        content += "Obijuan"
         mime = "text/html"
         filename += "index.html"
       }
       res.statusCode = 200;
+
       break;
 
-    //-- Pagina de acceso
+    //-- Pagina de registro
     case "/login":
+      // ARREGLAR ESTO
       mime = "text/html"
       filename = "login.html"
-      //-- ESTABLECER LA COOKIE!!
-      res.setHeader('Set-Cookie', 'user=obijuan')
 
       if (req.method === 'POST') {
           // Handle post info...
@@ -123,9 +125,13 @@ function peticion(req, res) {
               usuario = data.indexOf("=")
               usuario1 = data.slice(usuario+1,)
               //-- Añadimos el usuario al html base
-              content = htmlbase(usuario1)
+              confirmacion = "<h2>Confirmación de registro</h2>"
+              content = htmlbase(confirmacion, usuario1)
               //-- Mostrar los datos en la consola del servidor
               console.log("Datos recibidos: " + data)
+
+              //-- ESTABLECER LA COOKIE!!
+              res.setHeader('Set-Cookie', 'user=' + usuario1)
               res.statusCode = 200;
            });
 
@@ -141,8 +147,41 @@ function peticion(req, res) {
 
     //-- Se intenta acceder a un recurso que no existe
     default:
-      content = "Error";
-      res.statusCode = 404;
+      if (req.method === 'POST') {
+          // Handle post info...
+          req.on('data', chunk => {
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+
+              //-- Comprobamos que esté la cookie de usuario.
+              if (cookie.includes("user=")) {
+                console.log(data);
+                // --- Buscamos el producto pedido
+                let order = data.indexOf("=")
+                let order1 = data.slice(order+1)
+                console.log(order1)
+
+                // --- Establecemos una cookie con ese productos
+                res.setHeader('Set-Cookie', 'product=' + order1)
+
+              } else {
+                content += "\nNo te conozco... Registrate!\n"
+                content += "Accede a /login"
+                mime = "text/plain"
+              }
+         });
+
+         req.on('end', ()=> {
+           //-- Generar el mensaje de respuesta
+           res.setHeader('Content-Type', 'text/plain')
+           res.write("probando");
+           res.end();
+         })
+         return
+      }
+
+      //content = "Error";
+      //res.statusCode = 404;
   }
 
   console.log("__________")
@@ -151,6 +190,7 @@ function peticion(req, res) {
 
 
   // Montando el mensaje de respuesta dependiendo del mime
+  // BORRAR EL PRIMERO CUANDO HAGA HTML PARA NO LOGGEADO
   if (mime == "text/plain") {
     res.setHeader('Content-Type', mime)
     res.write(content);
@@ -169,7 +209,6 @@ function peticion(req, res) {
     });
   }
 }
-
 
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición

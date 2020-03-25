@@ -92,7 +92,7 @@ a:hover {
   height: 400px;
 }
 
-.button {
+button {
   box-shadow:inset 0px 39px 0px -24px #A7756E;
   width: 300px;
   position: relative;
