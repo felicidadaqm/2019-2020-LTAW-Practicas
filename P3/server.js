@@ -12,6 +12,14 @@ function repeticion(cadena, caracter){
   return indices.length;
 }
 
+// Función que saca el valor de un recurso o una cookie
+function recortar(datos, caracter) {
+  find = datos.lastIndexOf(caracter)
+  value = datos.slice(find+1)
+
+  return value;
+}
+
 // Creamos un html muy básico para las páginas de confirmación
 // -- ARREGLAR PARA QUE SIRVA PARA LOS CARRITOS
 function htmlbase(tipoconf, variable) {
@@ -67,9 +75,8 @@ function peticion(req, res) {
   let mime = "text/"
 
   // -- Buscamos el "." final para poder indicar que tipo mime es
-  let tipo = q.pathname.lastIndexOf(".")
-  let tipo1 = q.pathname.slice(tipo+1)
-  mime = mime + tipo1
+  let tipo = recortar(q.pathname, ".")
+  mime = mime + tipo
 
   // -- Buscamos cuantas "/" tiene el recurso pedido para sacar ubicación
   var barras = repeticion(q.pathname, "/")
@@ -78,8 +85,7 @@ function peticion(req, res) {
   if (barras > 1) {
     recurso = "." + q.pathname
   } else {
-    let peticion = q.pathname.lastIndexOf("/")
-    recurso = q.pathname.slice(peticion+1)
+    recurso = recortar(q.pathname, "/")
   }
 
   // Nombre del fichero
@@ -93,21 +99,15 @@ function peticion(req, res) {
   switch (q.pathname) {
     //-- Pagina principal
     case "/":
+      mime = "text/html"
       // -- Primero comprobamos que el usuario esté loggeado.
-      content = "Bienvenido a mi tienda "
       //-- No hay ninguna cookie
       if (!cookie) {
-        // FALTA ESTE HTML Y CAMBIAR MIME, ETC
-        content += "\nNo te conozco... Registrate!\n"
-        content += "Accede a /login"
-        mime = "text/plain"
+        filename += "nologgeado.html"
       //-- Hay definida una Cookie. Entra a la vista principal
       } else {
-        mime = "text/html"
         filename += "index.html"
       }
-      res.statusCode = 200;
-
       break;
 
     //-- Pagina de registro
@@ -121,17 +121,15 @@ function peticion(req, res) {
           req.on('data', chunk => {
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString();
-              //-- Añadir los datos a la respuesta
-              usuario = data.indexOf("=")
-              usuario1 = data.slice(usuario+1,)
               //-- Añadimos el usuario al html base
+              usuario= recortar(data, "=")
               confirmacion = "<h2>Confirmación de registro</h2>"
-              content = htmlbase(confirmacion, usuario1)
+              content = htmlbase(confirmacion, usuario)
               //-- Mostrar los datos en la consola del servidor
               console.log("Datos recibidos: " + data)
 
               //-- ESTABLECER LA COOKIE!!
-              res.setHeader('Set-Cookie', 'user=' + usuario1)
+              res.setHeader('Set-Cookie', 'user=' + usuario)
               res.statusCode = 200;
            });
 
@@ -145,7 +143,7 @@ function peticion(req, res) {
         }
       break;
 
-    //-- Se intenta acceder a un recurso que no existe
+    //-- El resto de recursos, si no existe la respuesta está contemplada más abajo
     default:
       if (req.method === 'POST') {
           // Handle post info...
@@ -155,48 +153,49 @@ function peticion(req, res) {
 
               //-- Comprobamos que esté la cookie de usuario.
               if (cookie.includes("user=")) {
-                console.log(data);
-                // --- Buscamos el producto pedido
-                let order = data.indexOf("=")
-                let order1 = data.slice(order+1)
-                console.log(order1)
+                // Buscamos que producto han pedido
+                let order = recortar(data, "=")
+                content = htmlbase("blabla", "___")
+                console.log(filename)
+                console.log("EL FICHERO ES")
 
-                // --- Establecemos una cookie con ese productos
-                res.setHeader('Set-Cookie', 'product=' + order1)
+                //  Vemos si existe cookie para el carrito
+                if (cookie.includes("shoppingcart=")) {
+                  let old_cookie = recortar(cookie, "=")
+                  let new_cookie = old_cookie + "&" + order
+                  console.log("La nueva cookie es -------->")
+                  console.log(new_cookie)
+                  res.setHeader('Set-Cookie', 'shoppingcart=' + new_cookie)
+                } else {
+                  // -- Si no hay cookie para el carrito, la creamos
+                  res.setHeader('Set-Cookie', 'shoppingcart=' + order)
+                }
 
               } else {
-                content += "\nNo te conozco... Registrate!\n"
-                content += "Accede a /login"
-                mime = "text/plain"
+                filename = "nologgeado.html"
+                mime = "text/html"
               }
+              // Una vez metido el producto en el carrito, nos quedamos en la misma página
+              content = fs.readFileSync(filename, "utf-8")
+              res.statusCode = 200;
          });
 
          req.on('end', ()=> {
            //-- Generar el mensaje de respuesta
-           res.setHeader('Content-Type', 'text/plain')
-           res.write("probando");
+           res.setHeader('Content-Type', mime)
+           res.write(content);
            res.end();
          })
          return
       }
+      break
 
       //content = "Error";
       //res.statusCode = 404;
   }
 
-  console.log("__________")
-  console.log(filename)
-  console.log(recurso)
-
-
   // Montando el mensaje de respuesta dependiendo del mime
-  // BORRAR EL PRIMERO CUANDO HAGA HTML PARA NO LOGGEADO
-  if (mime == "text/plain") {
-    res.setHeader('Content-Type', mime)
-    res.write(content);
-    res.end();
-  } else {
-    fs.readFile(filename, function(err, data) {
+  fs.readFile(filename, function(err, data) {
       if (err) {
         res.writeHead(404, {'Content-Type': 'text/html'});
         return res.end("404 Not Found");
@@ -207,7 +206,6 @@ function peticion(req, res) {
       res.write(data);
       res.end();
     });
-  }
 }
 
 //-- Inicializar el servidor
