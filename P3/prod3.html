@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>Artículo 1</title>
     <link rel="stylesheet" href="./css/micss_prod.css">
-    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
   </head>
 
   <body>
 
-    <div class="header">
-    <h1> Magic shop</h1>
+    <div id="header">
+    <h1 class="titulo"> Magic shop</h1>
+      <span><p class="prueba">Bienvenido</p></span>
+      <span><a href="/shoppingcart" class="prueba">Carrito</a></span>
     </div>
 
     <div class="main">
@@ -27,7 +29,11 @@
             <li> Sorpresa</li>
           <p>34,99 $$ + gastos de envío</p>
           <br></br>
-        <a href="/">Página principal</a>
+          <form method="post">
+            <button type="submit" name="botonenvio" value="Big">Añadir al carrito</button>
+          </form>
+          <br>
+        <a href="/">←</a>
       </div>
     </div>
 

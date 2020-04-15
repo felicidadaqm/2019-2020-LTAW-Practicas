@@ -6,7 +6,7 @@ body {
   margin-top: 220px; /* Add a bottom margin to avoid content overlay */
 }
 
-.header {
+#header {
   overflow: hidden;
   background-color: #333;
   position: fixed; /* Set the navbar to fixed position */
@@ -15,13 +15,13 @@ body {
 
   text-align: center;
   text-shadow: 0.1em 0.1em #333;
+  font-family: 'Gabriela', serif;
   background: #A7756E;
   color: white;
   font-size: 30px;
-  font-family: 'Lemonada', cursive;
 }
 
-h1 {
+#hader .titulo {
   top: 20px;
 }
 
@@ -109,4 +109,12 @@ button {
   text-decoration:none;
   text-align: center;
   text-shadow:0px 1px 0px #b23e35;
+}
+
+
+#header .prueba {
+  /* Properties */
+  text-align: right;
+  font-size: 14px;
+  color: #F2F2F2;
 }

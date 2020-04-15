@@ -6,7 +6,7 @@ body {
   margin-top: 220px; /* Add a bottom margin to avoid content overlay */
 }
 
-.header {
+#header {
   overflow: hidden;
   background-color: #333;
   position: fixed; /* Set the navbar to fixed position */
@@ -18,7 +18,7 @@ body {
   background: #A7756E;
   color: white;
   font-size: 30px;
-  font-family: 'Lemonada', cursive;
+  font-family: 'Gabriela', serif;
 }
 
 h1 {
@@ -74,4 +74,11 @@ a:hover {
 .Price {
   font-size: 17px;
   margin-left: 65px;
+}
+
+#header .prueba {
+  /* Properties */
+  text-align: right;
+  font-size: 14px;
+  color: #F2F2F2;
 }
