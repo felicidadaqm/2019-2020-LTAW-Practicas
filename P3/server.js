@@ -57,7 +57,8 @@ function htmlbase(tipoconf, variable, boton) {
 }
 
 function constructor(req, res, content, mime) {
-  res.setHeader('Content-Type', mime)
+  //res.setHeader('Content-Type', mime)
+  res.writeHead(200, {'Content-Type': 'text/html'})
   res.write(content);
   res.end();
 }
@@ -153,6 +154,7 @@ function peticion(req, res) {
 
     // Carrito de la compro
     case '/shoppingcart':
+      content = fs.readFileSync("compra.html", "utf-8")
       // Sacamos los datos de los productos que van a comprarse
       if (cookie.includes("shoppingcart=")) {
         let products = recortar(cookie, "=")
@@ -168,7 +170,6 @@ function peticion(req, res) {
 
         }
           cosas.push(products)
-          tipoconf = "<h2>Carrito de la compra</h2>"
 
           let little = 0;
           let medium = 0;
@@ -191,26 +192,44 @@ function peticion(req, res) {
             }
           }
 
-          cantidad = "<br><lu>Little Mystery Box: " + little + "</lu>"
-          cantidad += "<br><lu>Medium Mystery Box: " + medium + "</lu>"
-          cantidad += "<br><lu>Big Mystery Box: " + big + "</lu>"
-          cantidad += "<br><br><p>Total compra:       " + price + " $ </p>"
-          boton =  '<a href="/compra" class="button">Confirmar compra</a>'
-          boton += '<a href="/" class="button">Seguir comprando</a>'
+          content += "<br><lu>Little Mystery Box: " + little + "</lu>"
+          content += "<br><lu>Medium Mystery Box: " + medium + "</lu>"
+          content += "<br><lu>Big Mystery Box: " + big + "</lu>"
+          content += "<br><br><p>Total compra:       " + price + " $ </p>"
+
 
       } else {
-        tipoconf = tipoconf = "<h2>Carrito de la compra</h2>"
-        cantidad = "<p>¡No hay nada en tu carrito de la compra!</p>"
-        boton =  '<a href="/" class="button">Seguir comprando</a>'
+        content += "<p>¡No hay nada en tu carrito de la compra!</p>"
       }
+      content += `     <br></br>
+             <br>
+           </div>
+         </div>
+
+       </body>
+      </html>`
       mime = "text/html"
-      data = htmlbase(tipoconf, cantidad, boton)
-      constructor(req, res, data, mime)
+      constructor(req, res, content, mime)
 
       break;
 
-      // AÑADIR OTRO CASE PARA CONFIRMACIÓN DE COMPRA
-    
+    // ARREGLAR PAGINA DE CONFIRMACIÓN
+    case "/confirmacion":
+      mime = "text/html"
+      filename = "compra.html"
+
+      content = fs.readFileSync(filename, "utf-8")
+      content += `     <br></br>
+             <br>
+           </div>
+         </div>
+
+       </body>
+      </html>`
+      constructor(req, res, content, mime)
+
+      break;
+
 
     //-- El resto de recursos, si no existe la respuesta está contemplada más abajo
     default:

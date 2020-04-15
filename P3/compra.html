@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Artículo 1</title>
+    <link rel="stylesheet" href="./css/css_compra.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div id="header">
+    <h1 class="titulo"> Magic shop</h1>
+      <span><p class="prueba">Bienvenido</p></span>
+      <span><a href="/shoppingcart" class="prueba">Carrito</a></span>
+    </div>
+
+    <div class="main">
+      <div class="columna" id="izquierda">
+        <h2>Formulario de compra</h2>
+        <form method="post" action="/confirmacion">
+          <div class="eleccion">
+            <br>
+            <label>Nombre: <label>
+            <input type="text" name="nombre" value="Nombre" />
+            <br>
+            <label>Apellidos: <label>
+            <input type="text" name="apellido" value="Apellidos" />
+            <br>
+            <label>Correo electrónico: <label>
+            <input type="text" name="correo" value="Coreo" />
+            <br>
+            <label for="cars">Método de pago:</label>
+              <select id="cars" name="carlist" form="carform">
+                <option value="paypal">Paypal</option>
+                <option value="tarjeta">Tarjeta de crédito/débito</option>
+                <option value="transferencia">Transferencia bancaria</option>
+              </select>
+            <br><br>
+            </div>
+            <button type="submit" name="botonenvio" value="confirmación" class="button">Finalizar compra</button>
+          </form>
+        </div>
+
+      <div class="columna" id="derecha">
+        AQUI LO QUE HE COMPRADO, LO METO EN EL JS
