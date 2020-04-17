@@ -135,3 +135,13 @@ h2 {
   top: 40px;
   color: #A7756E;
 }
+
+.final {
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 18px;
+  color: black;
+  font: Verdana;
+  display: inline-block;
+  text-align: justify;
+}

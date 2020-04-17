@@ -11,7 +11,8 @@
 
     <div id="header">
     <h1 class="titulo"> Magic shop</h1>
-      <span><p class="prueba">Bienvenido</p></span>
+      <span><p class="prueba">Sesión iniciada</p></span>
+      <span><a href="/" class="prueba">Página principal</a></span>
       <span><a href="/shoppingcart" class="prueba">Carrito</a></span>
     </div>
 
@@ -30,11 +31,11 @@
             <label>Correo electrónico: <label>
             <input type="text" name="correo" value="Coreo" />
             <br>
-            <label for="cars">Método de pago:</label>
-              <select id="cars" name="carlist" form="carform">
-                <option value="paypal">Paypal</option>
-                <option value="tarjeta">Tarjeta de crédito/débito</option>
-                <option value="transferencia">Transferencia bancaria</option>
+            <label for="payment">Método de pago:</label>
+              <select name="OS">
+                <option value="Transferencia bancaria">Transferencia bancaria</option>
+                <option value="Paypal">Paypal</option>
+                <option value="Tarjeta de debito/credito">Tarjeta crédito/débito</option>
               </select>
             <br><br>
             </div>
@@ -43,4 +44,4 @@
         </div>
 
       <div class="columna" id="derecha">
-        AQUI LO QUE HE COMPRADO, LO METO EN EL JS
+        <h2>Shopping cart</h2>

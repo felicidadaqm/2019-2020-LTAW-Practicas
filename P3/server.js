@@ -3,6 +3,8 @@ const url = require('url');
 const fs = require('fs');
 const PUERTO = 8080
 
+let productos = ["FPGA-1", "RISC-V", "74ls00", "FPGA-2", "74ls01", "AVR", "Arduino-UNO"];
+
 // Función para ver las "/" del recurso pedido
 function repeticion(cadena, caracter){
   var indices = [];
@@ -12,7 +14,7 @@ function repeticion(cadena, caracter){
   return indices.length;
 }
 
-// Función que saca el valor de un recurso o una cookie
+// Función que saca el valor de un recurso o una cookie desde atrás
 function recortar(datos, caracter) {
   find = datos.lastIndexOf(caracter)
   value = datos.slice(find+1)
@@ -176,8 +178,7 @@ function peticion(req, res) {
           let big = 0;
           let price = 0;
 
-          // RECORRER EL ARRAY CON LOS PRODUCTOS Y FORMAR EL html
-          // CON PRODUCTOS + PRECIO TOTAL
+          // Veo el total de unidades de cada producto
           for (var i = 0; i < cosas.length; i++) {
             console.log(cosas[i])
             if (cosas[i] == "Little") {
@@ -192,12 +193,17 @@ function peticion(req, res) {
             }
           }
 
-          content += "<br><lu>Little Mystery Box: " + little + "</lu>"
-          content += "<br><lu>Medium Mystery Box: " + medium + "</lu>"
-          content += "<br><lu>Big Mystery Box: " + big + "</lu>"
-          content += "<br><br><p>Total compra:       " + price + " $ </p>"
-
-
+          // Añado al html los productos según estén en el carrito o no
+          if (little >= 1) {
+            content += "<br><lu><p>Little Mystery Box: " + little + "</p></lu>"
+          }
+          if (medium >= 1) {
+            content += "<br><lu><p>Medium Mystery Box: " + medium + "</p></lu>"
+          }
+          if (big >= 1) {
+            content += "<br><lu><p>Big Mystery Box: " + big + "</p></lu>"
+          }
+          content += "<br><br><p class='final'>Total compra:       " + price + " $ </p>"
       } else {
         content += "<p>¡No hay nada en tu carrito de la compra!</p>"
       }
@@ -205,7 +211,6 @@ function peticion(req, res) {
              <br>
            </div>
          </div>
-
        </body>
       </html>`
       mime = "text/html"
@@ -215,21 +220,58 @@ function peticion(req, res) {
 
     // ARREGLAR PAGINA DE CONFIRMACIÓN
     case "/confirmacion":
-      mime = "text/html"
-      filename = "compra.html"
+      if (req.method === 'POST') {
+          // Handle post info...
+          req.on('data', chunk => {
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+              //-- Añadimos los datos del pedido.
+              confirmacion = "<h2>Pedido realizado correctamente</h2>"
+              // Datos:
+              // INTENTAR HACER UNA FUNCIÓN CON ESTO
+              nombre = data.slice(data.indexOf("=")+1, data.indexOf("&"))
+              data = data.slice(data.indexOf("&")+1,)
+              apellido = data.slice(data.indexOf("=")+1, data.indexOf("&"))
+              data = data.slice(data.indexOf("&")+1,)
+              correo = data.slice(data.indexOf("=")+1, data.indexOf("&"))
+              data = data.slice(data.indexOf("&")+1,)
+              metodo = data.slice(data.indexOf("=")+1, data.indexOf("&"))
 
-      content = fs.readFileSync(filename, "utf-8")
-      content += `     <br></br>
-             <br>
-           </div>
-         </div>
+              // Mensaje de confirmación
+              message = "<p>¡Gracias, " + nombre + " " + apellido + "!</p> "
+              message += "<p>Su pedido, pagado mediante " + metodo + " ha sido realizado. "
+              message += "Recibirá en " + correo + " toda la información sobre el envío.</p>"
+              boton =  '<a href="/" class="button">Pagina principal</a>'
+              content = htmlbase(confirmacion, message, boton)
+           });
 
-       </body>
-      </html>`
-      constructor(req, res, content, mime)
-
+           req.on('end', ()=> {
+             //-- Generar el mensaje de respuesta
+             constructor(req, res, content, "text/html")
+           })
+           return
+        }
       break;
 
+    case "/client.js":
+      fs.readFile("./client.js", (err, data) => {
+      //-- Generar el mensaje de respuesta
+      constructor(req, res, data, 'application/javascript')
+      return
+      });
+      break;
+
+      //-- Acceso al recurso JSON
+    case "/myquery":
+      //-- El array de productos lo pasamos a una cadena de texto,
+      //-- en formato JSON:
+      content = JSON.stringify(productos) + '\n';
+      //-- Generar el mensaje de respuesta
+      //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
+      //-- en la cabecera Content-Type
+      constructor(req, res, content, 'application/json')
+      return
+      break;
 
     //-- El resto de recursos, si no existe la respuesta está contemplada más abajo
     default:
