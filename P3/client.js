@@ -25,7 +25,6 @@ ver.oninput = ()=>{
      //-- Petición enviada y recibida. Todo OK!
      if (m.readyState==4 && m.status==200){
 
-       prueba = []
        //-- La respuesta es un objeto JSON
        let productos = JSON.parse(m.responseText)
        //-- Borrar el resultado anterior que hubiese en el párrafo de resultado
@@ -33,12 +32,16 @@ ver.oninput = ()=>{
 
        //--Recorrer los productos del objeto JSON
        for (let i=0; i < productos.length; i++) {
-          if (busqueda.charAt(i) == productos[i].charAt(i)) {
-              console.log(busqueda.charAt(i))
-              console.log(productos[i].charAt(i))
-             //-- Añadir cada producto al párrafo de visualización
-             resultado.innerHTML += productos[i];
-             prueba.push(productos[i])
+         // Recorremos las cadenas de búsqueda y cada producto para ver si coinciden
+         for (j=0; j <= busqueda.length; j++) {
+            if (busqueda.charAt(j) == productos[i].charAt(j)) {
+                // ARREGLAR, EL AVR SE PONE CUANDO NO LE TOCA
+                prueba = []
+                prueba.push(productos[i])
+                console.log(prueba)
+                //-- Añadir cada producto al párrafo de visualización
+                resultado.innerHTML += productos[i];
+             }
            }
          //-- Añadir cada producto al párrafo de visualización
          //resultado.innerHTML += productos[i];
