@@ -118,6 +118,7 @@ function peticion(req, res) {
 
       content = fs.readFileSync(filename, "utf-8")
       constructor(req, res, content, mime)
+
       break;
 
     //-- Pagina de registro
@@ -242,6 +243,8 @@ function peticion(req, res) {
               message += "<p>Su pedido, pagado mediante " + metodo + " ha sido realizado. "
               message += "Recibirá en " + correo + " toda la información sobre el envío.</p>"
               boton =  '<a href="/" class="button">Pagina principal</a>'
+              // Al realizar el pedido, borramos la cookie del carrito, ya se ha comprado ese producto
+              res.setHeader('Set-Cookie', 'shoppingcart=')
               content = htmlbase(confirmacion, message, boton)
            });
 
@@ -261,10 +264,9 @@ function peticion(req, res) {
       });
       break;
 
-      //-- Acceso al recurso JSON
+    //-- Acceso al recurso JSON
     case "/myquery":
-      //-- El array de productos lo pasamos a una cadena de texto,
-      //-- en formato JSON:
+      //-- El array de productos lo pasamos a una cadena de texto, en formato JSON:
       content = JSON.stringify(productos) + '\n';
       //-- Generar el mensaje de respuesta
       //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
@@ -272,6 +274,36 @@ function peticion(req, res) {
       constructor(req, res, content, 'application/json')
       return
       break;
+
+    //-- Para obtener info de un producto en concreto.
+    case "/info":
+      if (req.method === 'POST') {
+          // Handle post info...
+          req.on('data', chunk => {
+              //--Veo lo que tengo en la base de Datos
+              lista = JSON.stringify(productos) + '\n';
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+              //-- Veo el producto pedido y genero su html
+              let order = data.slice(data.indexOf("=")+1, data.indexOf("&"))
+              if (lista.includes(order)) {
+                // AÑADIR MÁS INFO SOBRE EL PRODUCTO
+                producto = "<p>¡Has solicitado info sobre " + order + "!</p>"
+              } else {
+                producto = "<p>El producto solicitado no se encuentra en stock</p>"
+              }
+              confirmacion = "<h2>Información sobre producto</h2>"
+              boton =  '<a href="/" class="button">Pagina principal</a>'
+              content = htmlbase(confirmacion, producto, boton)
+              res.statusCode = 200;
+           });
+
+           req.on('end', ()=> {
+             //-- Generar el mensaje de respuesta
+             constructor(req, res, content, "text/html")
+           })
+           return
+        }
 
     //-- El resto de recursos, si no existe la respuesta está contemplada más abajo
     default:

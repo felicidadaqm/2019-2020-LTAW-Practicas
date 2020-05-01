@@ -12,10 +12,16 @@
 
     <div id="header">
       <h1> Magic shop</h1>
-      <span><input type="text" id ="busqueda"/></span>
-      <span><p class="prueba" id="resultado"> </p></span>
-      <span><p class="prueba">Sesión iniciada</p></span>
-      <span><a href="/shoppingcart" class="prueba">Carrito</a></span>
+      <div id="barra">
+        <form method="post" action="/info">
+          <span>
+            <input type="text" id ="busqueda" name="busqueda" placeholder="Search..." autocomplete="on"/>
+            <button type="submit" name="botonenvio" value="search">Search</button></span>
+          <span><p class="prueba" id="resultado" class="dropdown-content"> </p></span>
+          <span><p class="prueba">Sesión iniciada</p></span>
+          <span><a href="/shoppingcart" class="prueba">Carrito</a></span>
+        </form>
+      </div>
     </div>
 
     <div class="main">

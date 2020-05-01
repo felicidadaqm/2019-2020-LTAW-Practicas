@@ -30,26 +30,27 @@ ver.oninput = ()=>{
        //-- Borrar el resultado anterior que hubiese en el párrafo de resultado
        resultado.innerHTML = "";
 
+       // Array para meter los productos que cumplan con la búsqueda
+       cumplen = []
        //--Recorrer los productos del objeto JSON
        for (let i=0; i < productos.length; i++) {
-         // Recorremos las cadenas de búsqueda y cada producto para ver si coinciden
-         for (j=0; j <= busqueda.length; j++) {
-            if (busqueda.charAt(j) == productos[i].charAt(j)) {
-                // ARREGLAR, EL AVR SE PONE CUANDO NO LE TOCA
-                prueba = []
-                prueba.push(productos[i])
-                console.log(prueba)
-                //-- Añadir cada producto al párrafo de visualización
-                resultado.innerHTML += productos[i];
-             }
-           }
-         //-- Añadir cada producto al párrafo de visualización
-         //resultado.innerHTML += productos[i];
-         //-- Separamos los productos por ',''
-         if (i < productos.length-1) {
-           resultado.innerHTML += ', ';
-         }
-       }
+         if (busqueda.length >= 3) {
+            // Comprobamos si lo escrito en la búsqueda está en algún elemento del array
+            if ((productos[i].toLowerCase()).includes(busqueda.toLowerCase())) {
+                if (cumplen.includes(productos[i])) {
+                  console.log("yastá")
+                } else {
+                  cumplen.push(productos[i])
+                  //-- Añadir cada producto al párrafo de visualización
+                  resultado.innerHTML += productos[i];
+                  //-- Separamos los productos por ',''
+                  if (i <= cumplen.length-1) {
+                    resultado.innerHTML += ', ';
+                  }
+                }
+            }
+          }
+        }
      }
    }
    //-- Enviar la petición!
