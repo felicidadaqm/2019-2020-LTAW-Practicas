@@ -45,15 +45,9 @@ io.on('connection', function(socket){
   //-- Le damos la bienvenida a través del evento 'hello'
   //-- ESte evento lo hemos creado nosotros para nuestro chat
   users = users + 1;
-  ids.push(socket.id)
 
-  for (let i=0; i < ids.length; i++) {
-    if (ids[i].includes(socket.id)) {
-      socket.emit('hello', "Bienvenido al Chat, eres el usuario " + users);
-    } else {
-      io.emit('msg', "Nuevo usuario conectado");
-    }
-  }
+  socket.emit('hello', "Bienvenido al Chat, eres el usuario " + users);
+  socket.broadcast.emit('msg', 'Nuevo usuario se ha unido a la conversación');
 
   //-- Función de retrollamada de mensaje recibido del cliente
   socket.on('msg', (msg) => {
@@ -62,10 +56,41 @@ io.on('connection', function(socket){
     io.emit('msg', msg);
   })
 
+  //--Cuando recibo uno de los comandos del Server
+  socket.on('cmd', (msg) => {
+    console.log("Cliente: " + socket.id + ': ' + msg);
+    switch(msg) {
+      case "/help":
+        msg = "La lista de comandos es: /help, /list, /hello, /date";
+      break;
+
+      case "/list":
+        msg = "Hay un total de " + users + " usuarios en el chat";
+      break;
+
+      case "/hello":
+        msg = "Hiii ^^";
+      break;
+
+      case "/date":
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        msg = "La fecha actual es: " + day + "/" + month + "/" + year;
+      break;
+
+      default:
+        msg = "Comando no encontrado"
+    }
+    //-- Enviar el mensaje sólo al que ha realizado la petición
+    io.to(socket.id).emit('cmd', msg);
+  })
+
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
     users = users - 1;
-    ids = ids.splice(ids.indexOf(socket.id))
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
   });
 });

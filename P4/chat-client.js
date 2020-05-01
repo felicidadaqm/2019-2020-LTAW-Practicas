@@ -15,6 +15,13 @@ socket.on('hello', (msg) => {
   display.innerHTML = msg;
 });
 
+//-- Se ha recibido el evento 'hello', mensaje de bienvenida del servidor
+socket.on('cmd', (msg) => {
+  console.log("Mensaje del servidor: " + msg);
+  //-- Ponerlo en el párrafo display
+  display.innerHTML += "<br> > " + msg;
+});
+
 //-- Se ha recibido un mensaje
 socket.on('msg', (msg) => {
   //-- Añadirlo al párrafo display
@@ -26,8 +33,13 @@ socket.on('msg', (msg) => {
 send.onclick = () => {
   //-- Se envía el mensaje escrito, 'msg' para los mensajes de usuario
   //-- Si no se ha introducido ningún mensaje, no se envía
-  if (msg.value)
-    socket.emit('msg', msg.value)
+  if (msg.value) {
+    let initial = msg.value.charAt(0)
+    if (initial == "/")
+      socket.emit('cmd', msg.value)
+  } else {
+      socket.emit('msg', msg.value)
+  }
   //-- Borramos el mensaje escrito
   msg.value="";
 }
