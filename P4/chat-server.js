@@ -11,7 +11,6 @@ const io = require('socket.io')(http);
 const PORT = 8080
 
 var users = 0;
-var ids = [];
 
 //-- Lanzar servidor
 http.listen(PORT, function(){
