@@ -31,8 +31,7 @@ app.get('/woala', (req, res) => {
   console.log("Acceso a /woala");
 });
 
-//-- El resto de peticiones se interpretan como
-//-- ficheros estáticos
+//-- El resto de peticiones se interpretan como ficheros estáticos
 app.use('/', express.static(__dirname +'/'));
 
 //------ COMUNICACION POR WEBSOCKETS
@@ -46,7 +45,7 @@ io.on('connection', function(socket){
   users = users + 1;
 
   socket.emit('hello', "Bienvenido al Chat, eres el usuario " + users);
-  socket.broadcast.emit('msg', 'Nuevo usuario se ha unido a la conversación');
+  socket.broadcast.emit('cmd', 'Nuevo usuario se ha unido a la conversación');
 
   //-- Función de retrollamada de mensaje recibido del cliente
   socket.on('msg', (msg) => {
@@ -91,5 +90,6 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     users = users - 1;
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
+    socket.broadcast.emit('cmd', 'Un usuario ha abandonado la conversación');
   });
 });
