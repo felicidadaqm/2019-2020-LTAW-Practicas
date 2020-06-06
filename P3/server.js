@@ -115,7 +115,6 @@ function peticion(req, res) {
       } else {
         filename += "index.html"
       }
-
       content = fs.readFileSync(filename, "utf-8")
       constructor(req, res, content, mime)
 
@@ -170,7 +169,6 @@ function peticion(req, res) {
             value = products.slice(0, find)
             products = products.slice(find+1,)
             cosas.push(value)
-
         }
           cosas.push(products)
 
@@ -269,8 +267,7 @@ function peticion(req, res) {
       //-- El array de productos lo pasamos a una cadena de texto, en formato JSON:
       content = JSON.stringify(productos) + '\n';
       //-- Generar el mensaje de respuesta
-      //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
-      //-- en la cabecera Content-Type
+      //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON: cabecera Content-Type
       constructor(req, res, content, 'application/json')
       return
       break;
@@ -282,6 +279,7 @@ function peticion(req, res) {
           req.on('data', chunk => {
               //--Veo lo que tengo en la base de Datos
               lista = JSON.stringify(productos) + '\n';
+              lista = lista.toLowerCase()
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString();
               //-- Veo el producto pedido y genero su html
@@ -336,7 +334,6 @@ function peticion(req, res) {
               }
               // Una vez metido el producto en el carrito, nos quedamos en la misma página
               content = fs.readFileSync(filename, "utf-8")
-              //res.statusCode = 200;
          });
 
          req.on('end', ()=> {
@@ -360,7 +357,6 @@ function peticion(req, res) {
 
       break
   }
-
 }
 
 //-- Inicializar el servidor

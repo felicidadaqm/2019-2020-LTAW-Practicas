@@ -16,14 +16,13 @@
     </div>
 
     <div class="main">
-      <h2>¡Pedido completado!</h2>
+      <h2>¡Ha ocurrido un error!</h2>
       <form  action="/recepcion/" method="post">
         {% csrf_token %}
         <div class="llegada">
           <br>
-          <p> Muchas gracias, {{pedido.cliente}}. Su pedido con
-              coste {{pedido.precio}} $$ ha sido recibido.
-              Procederemos al envío en los próximos días.
+          <p> Lo sentimos, {{pedido.cliente}}. El artículo que
+            ha solicitado no se encuentra actualmente en stock.
         </div>
           <br>
           <a href="/"> Volver a la página principal</a>

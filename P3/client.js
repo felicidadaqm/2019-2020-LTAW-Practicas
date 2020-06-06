@@ -38,11 +38,10 @@ ver.oninput = ()=>{
             // Comprobamos si lo escrito en la búsqueda está en algún elemento del array
             if ((productos[i].toLowerCase()).includes(busqueda.toLowerCase())) {
                 if (cumplen.includes(productos[i])) {
-                  console.log("yastá")
                 } else {
                   cumplen.push(productos[i])
                   //-- Añadir cada producto al párrafo de visualización
-                  resultado.innerHTML += productos[i];
+                  resultado.innerHTML +=  productos[i];
                   //-- Separamos los productos por ',''
                   if (i <= cumplen.length-1) {
                     resultado.innerHTML += ', ';
